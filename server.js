@@ -11,6 +11,8 @@ var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
 var config = require('./config'); // get our config file
 var User   = require('./app/models/user'); // get our mongoose model
 
+var socialLoginClass = require('social-login'); //get social login class
+
 // =================================================================
 // configuration ===================================================
 // =================================================================
@@ -147,6 +149,26 @@ apiRoutes.get('/check', function(req, res) {
 });
 
 app.use('/api', apiRoutes);
+
+// =================================================================
+// start social login init =========================================
+// =================================================================
+var socialLogin = new socialLoginClass({
+	app : app,
+	url : 'http://localhost:8080',
+	onAuth : function(req, type, uniqueProperty, accessToken, refreshToken, profile, done) {
+		// This is the centralized method that is called when the user is logged in using any of the supported social site.
+		//Setup
+
+		findOrCreate({
+			profile : profile, //user's profile 
+			property : uniqueProperty, // what data is unique in property
+			type : type // what type of login is that : facebook, google
+		}, function(user){
+
+		});
+	}
+});
 
 // =================================================================
 // start the server ================================================
