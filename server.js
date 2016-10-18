@@ -96,6 +96,8 @@ apiRoutes.post('/authenticate', function(req, res) {
 	});
 });
 
+
+
 // ---------------------------------------------------------
 // route middleware to authenticate and check token
 // ---------------------------------------------------------
@@ -168,6 +170,49 @@ var socialLogin = new socialLoginClass({
 
 		});
 	}
+});
+
+// =================================================================
+// all social login platforms out there ============================
+// =================================================================
+// Setup the various services:
+socialLogin.use({
+    facebook:	{
+        settings:	{
+            clientID:		"107504159722874",
+            clientSecret: 	"737c2773637da3a60505e34556fdb29f",
+            authParameters:	{
+                scope: 'read_stream,manage_pages'
+            }
+        },
+        url:	{
+            auth:		"/auth/facebook",           // The URL to use to login (<a href="/auth/facebook">Login with facebook</a>).
+            callback: 	"/auth/facebook/callback",  // The Oauth callback url as specified in your facebook app's settings
+            success:	'/',                        // Where to redirect the user once he's logged in
+            fail:		'/auth/facebook/fail'       // Where to redirect the user if the login failed or was canceled.
+        }
+    },
+    twitter:	{
+        settings:	{
+            clientID: 		"qXVAwmX8eLoWkP0vIsixJXhNP",
+            clientSecret: 	"ifcB6pTfnpS1E7IJNuDX26wNDcgJxQQB38AonRpIaQhbMgYa84"
+        },
+        url:	{
+            auth:		"/auth/twitter",
+            callback: 	"/auth/twitter/callback",
+            success:	'/',
+            fail:		'/auth/twitter/fail'
+        }
+    },
+    google:	{
+        settings:	{}, // Google doesn't take any API key or API secret
+        url:	{
+            auth:		"/auth/google",
+            callback: 	"/auth/google/callback",
+            success:	'/',
+            fail:		'/auth/google/fail'
+        }
+    }
 });
 
 // =================================================================
