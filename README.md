@@ -2,7 +2,7 @@
 
 ## Usage
 
-1. Clone the repo: `git clone git@github.com:scotch-io/node-token-authentication`
+1. Clone the repo: `git clone git@github.com:jimishio/node-token-authentication`
 2. Install dependencies: `npm install`
 3. Change SECRET in `config.js`
 4. Add your own MongoDB database to `config.js`
